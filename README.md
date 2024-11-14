@@ -1,8 +1,29 @@
-# React + Vite
+# Axis
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Internal website to watch stand-ups conferences at intellisys.
 
-Currently, two official plugins are available:
+## Prerequisites
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [Docker](https://docs.docker.com/engine/install/)
+- NodeJs (V20+): Install [here](https://nodejs.org/en/blog/release/v20.17.0). If you use [NVM](https://github.com/nvm-sh/nvm), run `nvm use`;
+
+## Getting started
+
+- Clone the repository
+
+```sh
+git clone git@github.com:vnathaly/Axis.git && cd Axis
+```
+
+- Install dependencies
+
+```sh
+npm install
+```
+
+- Run
+
+```sh
+npm run dev
+# Should prompt a URL that you can click and visit the page (e.g. http://localhost:5173/)
+```
