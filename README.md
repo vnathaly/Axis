@@ -9,4 +9,8 @@ Currently, two official plugins are available:
 
 Como correr mi proyecto:
 
-- Escribe en tu consola "npm run dev" y accede al local que indica. Listo
+- Primero abres la parte que es la consola o terminal, depende como lo conozcas.
+- Sino lo conoce te diré paso a paso como hacerlo:
+   - Presionas las teclas Ctrl (o command si es mac) + Este símbolo (~) si tu computadora esta en inglés, en español es   Ctrl (o command si es mac) y a la letra ñ
+- Escribe en tu consola "npm run dev" y accede al localhost que indica.
+- Puedes acceder copiando el link que te aparece en azul o dándole doble clik al mismo para que funcione.

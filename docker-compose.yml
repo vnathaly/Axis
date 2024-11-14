@@ -1,17 +1,5 @@
 
 services:
-
-  axis:
-    build: 
-      context: .
-    ports:
-      - 3000:3000
-    networks:
-      - axis-networks
-    container_name: axis-react
-    restart: always
-    depends_on:
-      - axis-db
   axis-db:
     image: mongo
     ports:
