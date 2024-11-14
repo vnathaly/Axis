@@ -1,0 +1,3 @@
+Register-EngineEvent PowerShell.Exiting -Action {  
+    Get-History | Export-Clixml "$HOME\PowerShellHistory.xml"  
+}
