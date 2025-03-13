@@ -1,23 +1,22 @@
 import './App.css'
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react'
-import { Navbar} from './components/layout/Navbar';
+import { BrowserRouter as Routes, Route, BrowserRouter } from "react-router-dom";
+import { Navbar } from './components/layout/Navbar';
+import { Login } from './components/layout/login';
+
 
 
 function App() {
   return (
     <>
-      <Navbar />
-    <header>
-      <SignedOut>
-        <SignInButton />
-      </SignedOut>
-      <SignedIn>
-        <UserButton />
-      </SignedIn>
-    </header>
+    <Login />
+
+    <BrowserRouter>
+    <Routes>
+        <Route path="/Navbar" element={< Navbar />}/>
+    </Routes>
+    </BrowserRouter>
     </>
   )
 }
 
-export default App
+export default App;
