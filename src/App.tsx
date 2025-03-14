@@ -1,6 +1,6 @@
 import { Route } from "react-router-dom";
 import{ Routes } from 'react-router'
-import  Navbar  from '@components';
+import  Navbar  from '@components/Navbar';
 
 function App() {
   return (
