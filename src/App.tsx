@@ -1,7 +1,7 @@
 import { Login } from '@layout/Login';
 import { Homepage } from '@components/Homepage'
 import { Routes, Route } from 'react-router'
-import { SignedIn } from '@clerk/clerk-react'
+import { SignedIn, SignedOut, RedirectToSignIn } from '@clerk/clerk-react'
 
 
 
@@ -14,6 +14,11 @@ function App() {
           <SignedIn>
             <Homepage />
           </SignedIn>
+        } />
+        <Route path='/Homepage' element={
+          <SignedOut>
+            <Login/>
+          </SignedOut>
         } />
       </Routes>
     </>
