@@ -20,7 +20,8 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
     "paths": {
-      "@components/*": ["./src/components/*"]
+      "@components/*": ["./src/components/*"],
+      "@layout/*": ["./src/components/layout/*"]
     }
   },
   "include": ["src/**/*", "**/*.tsx", "**/*.ts"]

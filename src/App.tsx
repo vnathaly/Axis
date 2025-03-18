@@ -1,15 +1,23 @@
-import { Route } from "react-router-dom";
-import{ Routes } from 'react-router'
-import  Navbar  from '@components/Navbar';
+import { Login } from '@layout/Login';
+import { Homepage } from '@components/Homepage'
+import { Routes, Route } from 'react-router'
+import { SignedIn } from '@clerk/clerk-react'
+
+
 
 function App() {
   return (
     <>
       <Routes>
-        <Route path="/Navbar" element={<Navbar/>} />
-        <Route path="/products" element={<div>klk 2</div>} />
+        <Route path="" element={<Login />} />
+        <Route path='Homepage' element={
+          <SignedIn>
+            <Homepage />
+          </SignedIn>
+        } />
       </Routes>
     </>
+
   )
 }
 
