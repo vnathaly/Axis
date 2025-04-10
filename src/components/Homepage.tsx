@@ -1,6 +1,6 @@
 import { Footer } from '@layout/Footer';
 import { Navbar } from '@layout/Navbar';
-import { Carousel } from '@layout/carousel'
+import { Carousel } from '@layout/Carousel';
 
 export function Homepage() {
 
