@@ -20,27 +20,60 @@ function hasAccess(roles: Role[], path: string): boolean {
       '/not-that-protected'
     ],
   }
+//---------------------------------------------------- Firt Test ----------------------------------------------------//
 
   /*
-
   - Si se envía un Role que está dentro de Role y el path está en routes pero no dentro de ese role, expected *FALSE*
   - Si se envía un Role que está dentro de Role y el path está en routes dentro de ese role, expected *TRUE*
+
+  Datos: {
+  - roles = []
+  - routes = {
+      roles...
+    }
+  - path = /n
+  }
+
+  Step 1.
+    Know the role.
+    Identify if role exists.
+  Step 2. 
+    Know the path.
+    Identify if path is on routes.role exists
+  Step 3.
+    Compare them [Role and Role] then [Role and Path].
+  */
+  
+
+    
+
+//---------------------------------------------------- Second Test ----------------------------------------------------//
+  /*
   - Si se ingresa un Role inexistente, expected *FALSE*
   - Si se ingresa un Role existente y ningún path, expected *FALSE*
+
+  Step 1.
+    Verify if Role and Path exists.
+  */
+
+  
+
+
+//---------------------------------------------------- Thrith Test ----------------------------------------------------//
+
+  /*
   - Si se ingresa el rol de admin y un path que está habilitado para user, expected *TRUE*
+  */
+ 
+  /*
   - Si se envía un path que no pertenece a ningun rol, [no importará el rol ingresado], expected *TRUE*
+  */
+
+  /*
   - Si se ingresa un path protegido y ningun user, expected *FALSE*
   - [Un usuario no debería poder estar logeado con dos roles a la vez, cuando uno está en uso es true y el otro false
     hacer el cambio, sucede lo mismo en caso contrario. Tomando en cuenta eso se estima que por cuenta pueden ser 
     varios roles pero nunca al mismo tiempo.].
-
-  */
-
-
-
-  // cuando se pasa un rol que existe en routes y un path que no esta incluido en ningun key de routes
-  /* cuando se pasa un rol que existe en routes y un path que esta incluido en uno de los keys de routes pero 
-      no es el mismo key que contiene a ruta
   */
 
 
