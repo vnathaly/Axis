@@ -5,7 +5,8 @@ import { SignedOut, SignedIn, SignInButton, Protect, useUser, useAuth } from '@c
 
 enum Role {
   admin = 'admin',
-  user = 'user'
+  user = 'user',
+  test = 'test'
 }
 
 function hasAccess(roles: Role[], path: string): boolean {
@@ -20,62 +21,43 @@ function hasAccess(roles: Role[], path: string): boolean {
     ],
   }
 
-  for (const key in roles) {
-      if (roles.hasOwnProperty(key) && (routes[Role.admin].includes(path) || routes[Role.user].includes(path))) {
-        console.log("EUREka")
-         return true;
-      }
-  }
+  /*
+
+  - Si se envía un Role que está dentro de Role y el path está en routes pero no dentro de ese role, expected *FALSE*
+  - Si se envía un Role que está dentro de Role y el path está en routes dentro de ese role, expected *TRUE*
+  - Si se ingresa un Role inexistente, expected *FALSE*
+  - Si se ingresa un Role existente y ningún path, expected *FALSE*
+  - Si se ingresa el rol de admin y un path que está habilitado para user, expected *TRUE*
+  - Si se envía un path que no pertenece a ningun rol, [no importará el rol ingresado], expected *TRUE*
+  - Si se ingresa un path protegido y ningun user, expected *FALSE*
+  - [Un usuario no debería poder estar logeado con dos roles a la vez, cuando uno está en uso es true y el otro false
+    hacer el cambio, sucede lo mismo en caso contrario. Tomando en cuenta eso se estima que por cuenta pueden ser 
+    varios roles pero nunca al mismo tiempo.].
+
+  */
 
 
 
-//  let arr = .castArray(roles);
-//   roles.hasOwnProperty("")
-//   if (routes.hasOwnProperty("element")){
+  // cuando se pasa un rol que existe en routes y un path que no esta incluido en ningun key de routes
+  /* cuando se pasa un rol que existe en routes y un path que esta incluido en uno de los keys de routes pero 
+      no es el mismo key que contiene a ruta
+  */
 
-//   }
 
-  // for (var key in roles) {
-  //   if (routes.hasOwnProperty(key) && ((routes[Role.user].includes(path) || routes[Role.admin].includes(path)))) {
-  //     return false;
-  //   }
+  // for (const key in roles) {
+
+  //     if (routes[Role.admin].includes(path) 
+  //       || routes[Role.user].includes(path))
+  //      {
+  //        return true;
+  //     }
   // }
-
-  // Object.keys(roles);
-  // Object.keys(roles).map((key) => {return roles[key]})
-
  
-  if (routes[Role.admin].includes(path) || routes[Role.user].includes(path)) {
-    console.log("Non eureca")
-    return false;
-  }
-  // else if (routes.hasOwnProperty(path) ) {
-  //   console.log("EURECAA");
-  //   return true;
-
-  // }
-  // if (!routes[Role.user].includes(path) || !routes[Role.admin].includes(path)) {
-  //   console.log("No eureca")
-  //   return true;
-  // }
-  
-
-  if (!routes[Role.admin].includes(path) || !routes[Role.user].includes(path)) {
-    console.log("EURECAA");
-    return true;
-
-  }
-  // else if (routes[Role.admin].includes(path) && routes[Role.user].includes(path)) {
-  //   console.log("No eureca")
+  // if (routes[Role.admin].includes(path) || routes[Role.user].includes(path)) {
   //   return false;
+  // } else {
+  //   return true;
   // }
-
-  // if path is not present on any list, return true
-  // if path is present on any list, check if the roles include the role where the path is being protected and return true if so
-  // if none of the above happens, return false
-
-  // {}.hasOwnProperty("element")
-  // ["jahsjhas", "element"].includes('element')
   return true;
 }
 
@@ -98,6 +80,11 @@ console.table([
   function: `hasAccess([Role.admin], '/supersecret')`,
   expected: true,
   currentResult: hasAccess([Role.admin], '/supersecret'),
+},
+{
+  function: `hasAccess([Role.test], '/supersecret')`,
+  expected: false,
+  currentResult: hasAccess([Role.test], '/supersecret'),
 }
 ])
 
