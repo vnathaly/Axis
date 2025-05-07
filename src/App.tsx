@@ -9,8 +9,13 @@ enum Role {
   test = 'test'
 }
 
+
+type Routes = {
+  [key in Partial<Role>]?: string[]
+}
+
 function hasAccess(roles: Role[], path: string): boolean {
-  const routes = {
+  const routes: Routes = {
     [Role.admin]: [
       '/protected',
       '/supersecret'
@@ -20,6 +25,37 @@ function hasAccess(roles: Role[], path: string): boolean {
       '/not-that-protected'
     ],
   }
+
+  const mergedPaths = Object.values(routes).reduce((prev, curr) => {
+    return [...prev, ...curr]
+  }, []);
+
+  const foundPath = mergedPaths.includes(path);
+
+  if (!foundPath) return true;
+
+
+  const routesKeys = Object.keys(routes) as Role[];
+
+  const requiredRoles = routesKeys.filter((value) => {
+    return routes[value]?.includes(path)
+  })
+
+  const hasRequiredRole = roles.some((role) => {
+    return requiredRoles.includes(role);
+  })
+
+  return hasRequiredRole;
+
+
+
+
+
+
+
+  
+
+
 //---------------------------------------------------- Firt Test ----------------------------------------------------//
 
   /*
@@ -57,7 +93,6 @@ function hasAccess(roles: Role[], path: string): boolean {
   */
 
   
-
 
 //---------------------------------------------------- Thrith Test ----------------------------------------------------//
 
