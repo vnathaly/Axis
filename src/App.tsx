@@ -1,5 +1,6 @@
 
 import { Homepage } from '@components/Homepage'
+import { useLocation } from 'react-router-dom'
 import { SignedOut, SignedIn, SignInButton, Protect, useUser, useAuth } from '@clerk/clerk-react'
 
 
@@ -22,147 +23,52 @@ function hasAccess(roles: Role[], path: string): boolean {
     ],
     [Role.user]: [
       '/supersecret',
-      '/not-that-protected'
+      '/not-that-protected',
     ],
   }
 
-  const mergedPaths = Object.values(routes).reduce((prev, curr) => {
-    return [...prev, ...curr]
-  }, []);
-
-  const foundPath = mergedPaths.includes(path);
-
-  if (!foundPath) return true;
-
-
   const routesKeys = Object.keys(routes) as Role[];
-
-  const requiredRoles = routesKeys.filter((value) => {
-    return routes[value]?.includes(path)
-  })
-
-  const hasRequiredRole = roles.some((role) => {
-    return requiredRoles.includes(role);
-  })
-
-  return hasRequiredRole;
-
-
-
-
-
-
-
   
+  // const newPath = path.split('/')
+
+  console.log("This is my path",path.substring(0,3))
+  console.log("indexof", path.indexOf("/"))
+  console.log("lastindexof", path.lastIndexOf("/"))
 
 
-//---------------------------------------------------- Firt Test ----------------------------------------------------//
-
-  /*
-  - Si se envía un Role que está dentro de Role y el path está en routes pero no dentro de ese role, expected *FALSE*
-  - Si se envía un Role que está dentro de Role y el path está en routes dentro de ese role, expected *TRUE*
-
-  Datos: {
-  - roles = []
-  - routes = {
-      roles...
-    }
-  - path = /n
-  }
-
-  Step 1.
-    Know the role.
-    Identify if role exists.
-  Step 2. 
-    Know the path.
-    Identify if path is on routes.role exists
-  Step 3.
-    Compare them [Role and Role] then [Role and Path].
-  */
-  
-
-    
-
-//---------------------------------------------------- Second Test ----------------------------------------------------//
-  /*
-  - Si se ingresa un Role inexistente, expected *FALSE*
-  - Si se ingresa un Role existente y ningún path, expected *FALSE*
-
-  Step 1.
-    Verify if Role and Path exists.
-  */
-
-  
-
-//---------------------------------------------------- Thrith Test ----------------------------------------------------//
-
-  /*
-  - Si se ingresa el rol de admin y un path que está habilitado para user, expected *TRUE*
-  */
- 
-  /*
-  - Si se envía un path que no pertenece a ningun rol, [no importará el rol ingresado], expected *TRUE*
-  */
-
-  /*
-  - Si se ingresa un path protegido y ningun user, expected *FALSE*
-  - [Un usuario no debería poder estar logeado con dos roles a la vez, cuando uno está en uso es true y el otro false
-    hacer el cambio, sucede lo mismo en caso contrario. Tomando en cuenta eso se estima que por cuenta pueden ser 
-    varios roles pero nunca al mismo tiempo.].
-  */
+  console.log("Path final quitar", path.substring(path.lastIndexOf("/")))
+  console.log("Replace path", path.replace(path.substring(path.lastIndexOf("/"))," "));
 
 
-  // for (const key in roles) {
+  // path.substring(0, path.lastIndexOf('/'));
+  // console.log("Este es:", path)
 
-  //     if (routes[Role.admin].includes(path) 
-  //       || routes[Role.user].includes(path))
-  //      {
-  //        return true;
-  //     }
-  // }
- 
-  // if (routes[Role.admin].includes(path) || routes[Role.user].includes(path)) {
-  //   return false;
-  // } else {
-  //   return true;
-  // }
-  return true;
+
+  const requiredRoles = routesKeys.filter(value => routes[value]?.includes(path))
+
+  console.log({requiredRoles, path})
+
+  if (requiredRoles.length < 1) return true;
+
+  return roles.some(role => requiredRoles.includes(role))
 }
-
-console.table([
-  {
-  function: `hasAccess([], '/test')`,
-  expected: true,
-  currentResult: hasAccess([], '/test')
-}, {
-  function: `hasAccess([], '/supersecret')`,
-  expected: false,
-  currentResult: hasAccess([], '/supersecret')
-},
-{
-  function: `hasAccess([], '/not-that-protected')`,
-  expected: false,
-  currentResult: hasAccess([], '/not-that-protected')
-},
-{
-  function: `hasAccess([Role.admin], '/supersecret')`,
-  expected: true,
-  currentResult: hasAccess([Role.admin], '/supersecret'),
-},
-{
-  function: `hasAccess([Role.test], '/supersecret')`,
-  expected: false,
-  currentResult: hasAccess([Role.test], '/supersecret'),
-}
-])
-
 
 function App() {
   const { user, isLoaded, isSignedIn } = useUser();
+  const {pathname} = useLocation();
 
   if (!isLoaded || !isSignedIn) return null;
 
   const roles: Array<Role> = user?.publicMetadata?.role as Array<Role> || []
+
+
+  const canAccess = hasAccess(roles, pathname);
+
+  console.log({pathname, roles, canAccess})
+
+  if (!canAccess) return (
+    <div>You don't have access</div>
+  )
 
   return (
     <>
