@@ -39,14 +39,16 @@ function hasAccess(roles: Role[], path: string): boolean {
   console.log("Path final quitar", path.substring(path.lastIndexOf("/")))
   console.log("Replace path", path.replace(path.substring(path.lastIndexOf("/"))," "));
 
+  const newpath = path.replace(path.substring(path.lastIndexOf("/"))," ");
+
 
   // path.substring(0, path.lastIndexOf('/'));
   // console.log("Este es:", path)
 
 
-  const requiredRoles = routesKeys.filter(value => routes[value]?.includes(path))
+  const requiredRoles = routesKeys.filter(value => routes[value]?.includes(newpath))
 
-  console.log({requiredRoles, path})
+  console.log({requiredRoles, newpath})
 
   if (requiredRoles.length < 1) return true;
 
