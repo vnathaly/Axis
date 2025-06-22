@@ -1,4 +1,3 @@
-
 import { Homepage } from '@components/Homepage'
 import { useLocation } from 'react-router-dom'
 import { SignedOut, SignedIn, SignInButton, Protect, useUser, useAuth } from '@clerk/clerk-react'
